@@ -1,0 +1,24 @@
+﻿<Window x:Class="WpfCrudGenerator.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WpfCrudGenerator"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="350" Width="900">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+        <DockPanel>
+            <TextBlock Text="C#" DockPanel.Dock="Top" />
+            <TextBox AcceptsReturn="True" TextWrapping="Wrap" Margin="5" Text="{Binding CSharpCode}" />
+        </DockPanel>
+        <DockPanel Grid.Column="1">
+            <TextBlock Text="XAML" DockPanel.Dock="Top" />
+            <Button DockPanel.Dock="Bottom" Margin="5" Width="100" Content="Generate XAML" x:Name="ButtonGenerateXaml" Click="ButtonGenerateXaml_Click" />
+            <TextBox AcceptsReturn="True" TextWrapping="Wrap" Margin="5" Text="{Binding XamlCode}" />
+        </DockPanel>
+    </Grid>
+</Window>
