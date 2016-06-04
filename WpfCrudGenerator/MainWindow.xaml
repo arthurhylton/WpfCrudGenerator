@@ -11,6 +11,10 @@
             <ColumnDefinition />
             <ColumnDefinition />
         </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="3*" />
+            <RowDefinition />
+        </Grid.RowDefinitions>
         <DockPanel>
             <TextBlock Text="C#" DockPanel.Dock="Top" />
             <TextBox AcceptsReturn="True" TextWrapping="Wrap" Margin="5" Text="{Binding CSharpCode}" />
@@ -19,6 +23,14 @@
             <TextBlock Text="XAML" DockPanel.Dock="Top" />
             <Button DockPanel.Dock="Bottom" Margin="5" Width="100" Content="Generate XAML" x:Name="ButtonGenerateXaml" Click="ButtonGenerateXaml_Click" />
             <TextBox AcceptsReturn="True" TextWrapping="Wrap" Margin="5" Text="{Binding XamlCode}" />
+        </DockPanel>
+        <DockPanel Grid.Column="1" Grid.Row="1">
+            <StackPanel>
+                <StackPanel Orientation="Horizontal" Margin="5 5 5 0">
+                    <TextBlock Width="100" Text="Binding Object:" VerticalAlignment="Center" />
+                    <TextBox Width="200" Text="{Binding BindingObject}" />
+                </StackPanel>
+            </StackPanel>
         </DockPanel>
     </Grid>
 </Window>
