@@ -70,17 +70,36 @@ namespace WpfCrudGenerator
             StringBuilder stringBuilder = new StringBuilder();
             foreach (var item in CSharpProperties)
             {
-                stringBuilder.AppendLine(string.Format("<StackPanel Orientation=\"Horizontal\">"));
-                stringBuilder.AppendLine(string.Format("<TextBlock Width=\"100\" Text=\"{0}:\" />", item.Name));
-                if(string.IsNullOrWhiteSpace(BindingObject))
+                switch (item.DataType)
                 {
-                    stringBuilder.AppendLine(string.Format("<TextBox Width=\"200\" Text=\"{{Binding {0}}}\" />", item.Name));
+                    case "bool":
+                    case "Boolean":
+                        stringBuilder.AppendLine(string.Format("<StackPanel Orientation=\"Horizontal\">"));
+                        stringBuilder.AppendLine(string.Format("<TextBlock Width=\"100\" Text=\"{0}:\" />", item.Name));
+                        if (string.IsNullOrWhiteSpace(BindingObject))
+                        {
+                            stringBuilder.AppendLine(string.Format("<CheckBox IsChecked=\"{{Binding {0}, Mode=TwoWay}}\" />", item.Name));
+                        }
+                        else
+                        {
+                            stringBuilder.AppendLine(string.Format("<CheckBox IsChecked=\"{{Binding {1}.{0}, Mode=TwoWay}}\" />", item.Name, BindingObject));
+                        }
+                        stringBuilder.AppendLine(string.Format("</StackPanel>"));
+                        break;
+                    default:
+                        stringBuilder.AppendLine(string.Format("<StackPanel Orientation=\"Horizontal\">"));
+                        stringBuilder.AppendLine(string.Format("<TextBlock Width=\"100\" Text=\"{0}:\" />", item.Name));
+                        if (string.IsNullOrWhiteSpace(BindingObject))
+                        {
+                            stringBuilder.AppendLine(string.Format("<TextBox Width=\"200\" Text=\"{{Binding {0}}}\" />", item.Name));
+                        }
+                        else
+                        {
+                            stringBuilder.AppendLine(string.Format("<TextBox Width=\"200\" Text=\"{{Binding {1}.{0}}}\" />", item.Name, BindingObject));
+                        }
+                        stringBuilder.AppendLine(string.Format("</StackPanel>"));
+                        break;
                 }
-                else
-                {
-                    stringBuilder.AppendLine(string.Format("<TextBox Width=\"200\" Text=\"{{Binding {1}.{0}}}\" />", item.Name, BindingObject));
-                }
-                stringBuilder.AppendLine(string.Format("</StackPanel>"));
             }
             return stringBuilder.ToString();
         }
