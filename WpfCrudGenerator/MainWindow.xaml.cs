@@ -54,7 +54,14 @@ namespace WpfCrudGenerator
                     while ((line = reader.ReadLine()) != null)
                     {
                         string[] split = line.Trim().Split('{')[0].Split(' ');
-                        CSharpProperties.Add(new CSharpProperty { AccessModifier = split[0], DataType = split[1], Name = split[2] });
+                        int removefrom = split[1].IndexOf('<');
+                        if(removefrom>=0)
+                        {
+                            CSharpProperties.Add(new CSharpProperty { AccessModifier = split[0], DataType = split[1].Remove(removefrom, split[1].Length - removefrom), Name = split[2] });
+                        }else
+                        {
+                            CSharpProperties.Add(new CSharpProperty { AccessModifier = split[0], DataType = split[1], Name = split[2] });
+                        }
                     }
                 }
             }
@@ -83,6 +90,20 @@ namespace WpfCrudGenerator
                         else
                         {
                             stringBuilder.AppendLine(string.Format("<CheckBox IsChecked=\"{{Binding {1}.{0}, Mode=TwoWay}}\" />", item.Name, BindingObject));
+                        }
+                        stringBuilder.AppendLine(string.Format("</StackPanel>"));
+                        break;
+                    case "List":
+                    case "ObservableCollection":
+                        stringBuilder.AppendLine(string.Format("<StackPanel>"));
+                        //stringBuilder.AppendLine(string.Format("<TextBlock Width=\"100\" Text=\"{0}:\" />", item.Name));
+                        if (string.IsNullOrWhiteSpace(BindingObject))
+                        {
+                            stringBuilder.AppendLine(string.Format("<DataGrid ItemsSource=\"{{Binding {0}}}\" />", item.Name));
+                        }
+                        else
+                        {
+                            stringBuilder.AppendLine(string.Format("<DataGrid ItemsSource=\"{{Binding {1}.{0}}}\" />", item.Name, BindingObject));
                         }
                         stringBuilder.AppendLine(string.Format("</StackPanel>"));
                         break;

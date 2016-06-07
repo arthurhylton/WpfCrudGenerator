@@ -8,15 +8,7 @@
         Title="WndTest" Height="300" Width="300">
     <DockPanel>
         <StackPanel>
-            <StackPanel Orientation="Horizontal">
-                <TextBlock Width="100" Text="CSharpCode:" />
-                <TextBox Width="200" Text="{Binding CSharpCode}" />
-            </StackPanel>
-            <StackPanel Orientation="Horizontal">
-                <TextBlock Width="100" Text="XamlCode:" />
-                <CheckBox IsChecked="{Binding XamlCode, Mode=TwoWay}" />
-            </StackPanel>
-
+            
         </StackPanel>
     </DockPanel>
 </Window>
